@@ -1,5 +1,3 @@
-import "./App.css";
-
 import SideBar from "@/components/SideBar";
 import {
     Dialog,
@@ -19,13 +17,33 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
 
 import { Button } from "./components/ui/button";
 import { FilePicker } from "./components/ui/filepicker";
 
 function App() {
+    const [file, setFile] = useState();
+    const [fileError, setFileError] = useState("");
+    const fileReader = new FileReader();
+
+    const handleOnChange = (e) => {
+        setFile(e.target.files[0]);
+    };
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+
+        if (file) {
+            fileReader.onload = function (event) {
+                const csvOutput = event.target.result;
+            };
+
+            fileReader.readAsText(file);
+        }
+    };
     return (
-        <div className="w-full mx-auto flex flex-wrap justify-start items-center h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark font-poppins">
+        <div className="w-full mx-auto flex flex-wrap justify-start items-center h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
             <SideBar />
             <div className="">
                 {/* <RadioGroup defaultValue="comfortable">
@@ -61,13 +79,52 @@ function App() {
                 <Button size="icon">+</Button>
                 <Button>Continue</Button>
                 <Button disabled>Continue</Button> */}
-                <Search />
+                {/* <Search /> */}
                 <Dialog>
                     <DialogTrigger>Open</DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className="max-w-[800px] h-[600px] flex flex-col">
                         <DialogHeader>
-                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                            <DialogTitle className="mb-2.5 font-poppins">
+                                Importer
+                            </DialogTitle>
+                            <div className="border border-borders-default" />
                         </DialogHeader>
+                        <div className="flex justify-between flex-col h-full">
+                            <FilePicker
+                                accept={".csv"}
+                                label={"Roster File"}
+                                value={file?.name}
+                                onChange={handleOnChange}
+                                id={"csvFileInput"}
+                                error={fileError}
+                                description={"File must be in .csv format"}
+                            />
+                            <div className="h-full mt-8">
+                                <p className="text-headings-light text-sm">
+                                    File Summary
+                                </p>
+                                <div className="text-sm flex mt-6 text-headings-normal">
+                                    <div className="w-full">Total Players</div>
+                                    <div className="w-full">Goalkeepers</div>
+                                    <div className="w-full">Defenders</div>
+                                    <div className="w-full">Midfielders</div>
+                                    <div className="w-full">Forwards</div>
+                                </div>
+                                <div className="text-sm flex mt-2 text-headings-light">
+                                    <div className="w-full">32</div>
+                                    <div className="w-full">4</div>
+                                    <div className="w-full">11</div>
+                                    <div className="w-full">13</div>
+                                    <div className="w-full">4</div>
+                                </div>
+                            </div>
+                            <Button
+                                disabled={!!file?.name}
+                                className="w-fit self-end"
+                            >
+                                Import
+                            </Button>
+                        </div>
                     </DialogContent>
                 </Dialog>
             </div>

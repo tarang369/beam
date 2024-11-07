@@ -1,32 +1,63 @@
 import { cn } from "@/lib/utils";
 
-const FilePicker = ({ contianerStyle, value, placeholder, disabled }) => {
+const FilePicker = ({
+    contianerStyle,
+    value,
+    placeholder,
+    disabled,
+    accept,
+    label,
+    onChange,
+    id,
+    error,
+    description,
+}) => {
     return (
         <div className={"group relative " + contianerStyle}>
-            <input type="file" className="sr-only peer" id="file-1" />
+            <p className="text-sm text-headings-light mb-2">{label}</p>
+            <input
+                type="file"
+                className="sr-only peer"
+                id={id}
+                onChange={onChange}
+                accept={accept}
+            />
             <label
-                htmlFor="file-1"
+                htmlFor={id}
                 className={cn(
-                    "flex w-full cursor-pointer overflow-hidden rounded-lg border border-borders-default",
-                    disabled ? "cursor-not-allowed bg-neutral-base" : ""
+                    "flex cursor-pointer overflow-hidden rounded-lg border border-borders-default w-[300px]",
+                    disabled ? "cursor-not-allowed bg-neutral-base" : "",
+                    error ? "border-primary-red" : "border-borders-default"
                 )}
             >
-                <span
-                    className={cn(
-                        "flex-1 px-4 py-2.5",
-                        value ? "text-headings-light" : "text-headings-muted"
-                    )}
-                >
+                <span className="flex-1 px-4 py-2.5 overflow-hidden text-headings-normal">
                     {value
                         ? value
                         : placeholder
                         ? placeholder
-                        : "Choose a file"}
+                        : "No file selected"}
                 </span>
-                <span className="inline-flex items-center justify-center px-4 py-2.5 border-l border-borders-default text-headings-normal rounded-s-lg">
+                <span
+                    className={cn(
+                        "inline-flex items-center justify-center px-4 py-2.5 border-l text-headings-normal rounded-s-lg ",
+                        error ? "border-primary-red" : "border-borders-default"
+                    )}
+                >
                     Select File
                 </span>
             </label>
+            <div className="text-sm mt-4">
+                {error && (
+                    <>
+                        <span className="text-red-500 mb-2">Error</span>
+                    </>
+                )}
+                {error ? (
+                    <p className="text-headings-normal">{error}</p>
+                ) : (
+                    <p className="text-headings-muted">{description}</p>
+                )}
+            </div>
         </div>
     );
 };

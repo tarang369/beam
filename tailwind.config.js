@@ -18,9 +18,9 @@ module.exports = {
                 "bg-gradient-dark": "#131313",
                 "bg-pitch-black": "#111111",
             },
-            fontFamily: {
-                poppins: ["Poppins", "sans-serif"],
-            },
+        },
+        fontFamily: {
+            poppins: ['"Poppins"', "sans-serif"],
         },
     },
     plugins: [],

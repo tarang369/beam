@@ -1,6 +1,14 @@
 import "./App.css";
 
 import SideBar from "@/components/SideBar";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Search from "@/components/ui/search";
 import {
@@ -54,6 +62,14 @@ function App() {
                 <Button>Continue</Button>
                 <Button disabled>Continue</Button> */}
                 <Search />
+                <Dialog>
+                    <DialogTrigger>Open</DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>Are you absolutely sure?</DialogTitle>
+                        </DialogHeader>
+                    </DialogContent>
+                </Dialog>
             </div>
         </div>
     );

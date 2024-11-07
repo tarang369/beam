@@ -165,6 +165,8 @@ const Example = () => {
 
     return (
         <Stack>
+            <Title order={4}>Import List</Title>
+            <MRT_GlobalFilterTextInput table={table} />
             <Divider />
             <Title order={4}>My Custom Headless Table</Title>
             <Flex justify="space-between" align="center">
@@ -181,10 +183,7 @@ const Example = () => {
                 fz="md"
                 highlightOnHover
                 horizontalSpacing="xl"
-                striped
                 verticalSpacing="xs"
-                withTableBorder
-                withColumnBorders
                 m="0"
             >
                 {/* Use your own markup or stock Mantine components, customize however you want using the power of TanStack Table */}

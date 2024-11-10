@@ -1,5 +1,5 @@
 import { FaUpload } from "react-icons/fa";
-const SideBar = () => {
+const SideBar = ({ onClickImport }) => {
     //active sidebar
 
     return (
@@ -14,13 +14,14 @@ const SideBar = () => {
                             <FaUpload
                                 className="w-[22px] h-full text-primary-orange"
                                 aria-label="import-players-icon"
+                                onClick={onClickImport}
                             />
                         ),
                     },
                 ].map((icon, index) => (
                     <div
                         key={index}
-                        className="h-6 inline-flex items-center gap-1"
+                        className="h-6 inline-flex items-center gap-1 cursor-pointer"
                     >
                         <div className="rounded-full bg-primary-orange h-1 w-1" />
                         {icon.icon}

@@ -12,6 +12,7 @@ const buttonVariants = cva(
                     "bg-primary-orange text-headings-light hover:bg-primary-dark-orange disabled:bg-neutral-base disabled:text-headings-muted",
                 secondary:
                     "border border-borders-default text-headings-normal hover:text-headings-light disabled:text-headings-muted",
+                danger: "bg-primary-red text-headings-light",
             },
             size: {
                 default: "h-11 px-5 pt-3 pb-[11px]",

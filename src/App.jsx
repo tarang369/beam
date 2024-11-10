@@ -1,135 +1,109 @@
-import SideBar from "@/components/SideBar";
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import Search from "@/components/ui/search";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
-import { Button } from "./components/ui/button";
-import { FilePicker } from "./components/ui/filepicker";
+import Breadcrumbs from "./components/Breadcrumbs";
+import SideBar from "./components/SideBar";
 
-function App() {
-    const [file, setFile] = useState();
-    const [fileError, setFileError] = useState("");
-    const fileReader = new FileReader();
+// function App() {
+//     return (
+//         <BrowserRouter>
+//             <Routes>
+//                 <Route path="/*" element={<MainLayout />} />
+//             </Routes>
+//         </BrowserRouter>
+//     );
+//     // return (
+//     //     <BrowserRouter>
+//     //         <div className="w-full mx-auto flex flex-wrap justify-start items-center h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
+//     //             <SideBar
+//     //                 onClickImport={() => {
+//     //                     handleDialog(DIALOG_TYPE.IMPORT_PLAYERS);
+//     //                 }}
+//     //             />
+//     //             <div>
+//     //                 {/* <div className="flex items-center justify-between px-4 py-2  text-white">
+//     //                     <div className="flex items-center gap-4">
+//     //                         <Button
+//     //                             variant="ghost"
+//     //                             className="text-white hover:text-white/90"
+//     //                         >
+//     //                             <FaDownload
+//     //                                 className="h-4 w-4 mr-2"
+//     //                                 onClick={() => {
+//     //                                     handleDialog(
+//     //                                         DIALOG_TYPE.IMPORT_PLAYERS
+//     //                                     );
+//     //                                 }}
+//     //                             />
+//     //                             Import List
+//     //                         </Button>
+//     //                         <div className="flex items-center gap-2">
+//     //                             <span className="text-primary-orange font-medium">
+//     //                                 Paris Saint-Germain F.C.
+//     //                             </span>
+//     //                             <Button
+//     //                                 variant="ghost"
+//     //                                 size="icon"
+//     //                                 className="h-8 w-8"
+//     //                             >
+//     //                                 <FaPencilRuler className="h-4 w-4 text-primary-orange" />
+//     //                             </Button>
+//     //                         </div>
+//     //                     </div>
+//     //                     <div className="flex items-center gap-4">
+//     //                         <div className="relative w-80">
+//     //                             <Input
+//     //                                 type="search"
+//     //                                 placeholder="Find Player"
+//     //                                 className="bg-zinc-900 border-none text-white placeholder:text-gray-400"
+//     //                             />
+//     //                         </div>
+//     //                         <div className="flex items-center gap-2">
+//     //                             <Button
+//     //                                 variant="ghost"
+//     //                                 className="text-white hover:text-white/90"
+//     //                             >
+//     //                                 <FaList className="h-4 w-4 mr-2" />
+//     //                                 Roster Details
+//     //                             </Button>
+//     //                             <Button
+//     //                                 variant="ghost"
+//     //                                 className="text-white hover:text-white/90"
+//     //                             >
+//     //                                 <IconLayoutGrid className="h-4 w-4 mr-2" />
+//     //                                 Formation Overview
+//     //                             </Button>
+//     //                         </div>
+//     //                     </div>
+//     //                 </div> */}
 
-    const handleOnChange = (e) => {
-        setFile(e.target.files[0]);
-    };
+//     //                 <Routes>
+//     //                     <Route path="/" element={<TeamsList />} />
+//     //                     <Route
+//     //                         path="/teams/:teamId/*"
+//     //                         element={<TeamLayout />}
+//     //                     />
+//     //                 </Routes>
+//     //                 {/* <Search /> */}
+//     //                 <Dialog open={showDialog} onOpenChange={closeDialog}>
+//     //                     {dialogContent()}
+//     //                 </Dialog>
+//     //             </div>
+//     //         </div>
+//     //     </BrowserRouter>
+//     // );
+// }
 
-    const handleOnSubmit = (e) => {
-        e.preventDefault();
+// export default App;
 
-        if (file) {
-            fileReader.onload = function (event) {
-                const csvOutput = event.target.result;
-            };
-
-            fileReader.readAsText(file);
-        }
-    };
+const AppLayout = () => {
     return (
-        <div className="w-full mx-auto flex flex-wrap justify-start items-center h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
+        <div className="w-full mx-auto flex h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
             <SideBar />
-            <div className="">
-                {/* <RadioGroup defaultValue="comfortable">
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="default" id="r1" />
-                        <label htmlFor="r1">Default</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="comfortable" id="r2" />
-                        <label htmlFor="r2">Comfortable</label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="compact" id="r3" />
-                        <label htmlFor="r3">Compact</label>
-                    </div>
-                </RadioGroup>
-                <Select>
-                    <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select a fruit" />
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Fruits</SelectLabel>
-                            <SelectItem value="apple">Apple</SelectItem>
-                            <SelectItem value="banana">Banana</SelectItem>
-                            <SelectItem value="blueberry">Blueberry</SelectItem>
-                            <SelectItem value="grapes">Grapes</SelectItem>
-                            <SelectItem value="pineapple">Pineapple</SelectItem>
-                        </SelectGroup>
-                    </SelectContent>
-                </Select> */}
-                {/* <FilePicker />
-                <Button size="icon">+</Button>
-                <Button>Continue</Button>
-                <Button disabled>Continue</Button> */}
-                {/* <Search /> */}
-                <Dialog>
-                    <DialogTrigger>Open</DialogTrigger>
-                    <DialogContent className="max-w-[800px] h-[600px] flex flex-col">
-                        <DialogHeader>
-                            <DialogTitle className="mb-2.5 font-poppins">
-                                Importer
-                            </DialogTitle>
-                            <div className="border border-borders-default" />
-                        </DialogHeader>
-                        <div className="flex justify-between flex-col h-full">
-                            <FilePicker
-                                accept={".csv"}
-                                label={"Roster File"}
-                                value={file?.name}
-                                onChange={handleOnChange}
-                                id={"csvFileInput"}
-                                error={fileError}
-                                description={"File must be in .csv format"}
-                            />
-                            <div className="h-full mt-8">
-                                <p className="text-headings-light text-sm">
-                                    File Summary
-                                </p>
-                                <div className="text-sm flex mt-6 text-headings-normal">
-                                    <div className="w-full">Total Players</div>
-                                    <div className="w-full">Goalkeepers</div>
-                                    <div className="w-full">Defenders</div>
-                                    <div className="w-full">Midfielders</div>
-                                    <div className="w-full">Forwards</div>
-                                </div>
-                                <div className="text-sm flex mt-2 text-headings-light">
-                                    <div className="w-full">32</div>
-                                    <div className="w-full">4</div>
-                                    <div className="w-full">11</div>
-                                    <div className="w-full">13</div>
-                                    <div className="w-full">4</div>
-                                </div>
-                            </div>
-                            <Button
-                                disabled={!!file?.name}
-                                className="w-fit self-end"
-                            >
-                                Import
-                            </Button>
-                        </div>
-                    </DialogContent>
-                </Dialog>
+            <div className="px-10 pt-10 w-full">
+                <Breadcrumbs />
+                <Outlet /> {/* This will render the child route components */}
             </div>
         </div>
     );
-}
-
-export default App;
+};
+export default AppLayout;

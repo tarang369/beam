@@ -1,0 +1,1 @@
+dialog color is unintentionally same as input disabled 

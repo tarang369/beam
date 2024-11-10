@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoIosClose } from "react-icons/io";
 
-export default function Search() {
+export default function Search({ placeholder = "Search..." }) {
     const [searchTerm, setSearchTerm] = useState("");
     const [hasSearched, setHasSearched] = useState(false);
 
@@ -26,7 +26,7 @@ export default function Search() {
             <FaSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-headings-muted" />
             <Input
                 type="text"
-                placeholder="Search..."
+                placeholder={placeholder}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className={

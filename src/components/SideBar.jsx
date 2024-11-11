@@ -3,7 +3,7 @@ const SideBar = ({ onClickImport }) => {
     //active sidebar
 
     return (
-        <nav className="bg-bg-pitch-black w-[60px] h-full pt-[18px] flex flex-col items-center">
+        <nav className="bg-bg-pitch-black w-[60px] h-lvh fixed pt-[18px] flex flex-col items-center">
             <img className="w-[30px] h-auto mb-10" src="/logo.png" alt="logo" />
 
             <div className="">

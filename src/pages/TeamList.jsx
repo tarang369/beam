@@ -1,3 +1,7 @@
+import "@mantine/core/styles.css";
+
+import DataTable from "@/components/DataTable/DataTable";
+// import Example from "@/components/PlayerTable";
 import {
     AlertDialog,
     AlertDialogAction,
@@ -8,12 +12,41 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { MantineProvider } from "@mantine/core";
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
-import { Link } from "react-router-dom";
 
+// import { Link } from "react-router-dom";
+
+// Sample data for demonstration
+const sampleData = Array.from({ length: 100 }, (_, index) => ({
+    playerName: `Player ${index + 1}`,
+    jerseyNumber: Math.floor(Math.random() * 99) + 1,
+    starter: Math.random() > 0.5 ? "Yes" : "No",
+    position: ["Forward", "Midfielder", "Defender", "Goalkeeper"][
+        Math.floor(Math.random() * 4)
+    ],
+    height: (1.7 + Math.random() * 0.3).toFixed(2) + " m",
+    weight: (65 + Math.random() * 25).toFixed(0) + " kg",
+    nationality: ["French", "Brazilian", "Spanish", "Argentine"][
+        Math.floor(Math.random() * 4)
+    ],
+    appearances: Math.floor(Math.random() * 50),
+    minutesPlayed: Math.floor(Math.random() * 3000),
+}));
+
+const columns = [
+    { key: "playerName", label: "Player Name" },
+    { key: "jerseyNumber", label: "Jersey Number" },
+    { key: "starter", label: "Starter" },
+    { key: "position", label: "Position" },
+    { key: "height", label: "Height" },
+    { key: "weight", label: "Weight" },
+    { key: "nationality", label: "Nationality" },
+    { key: "appearances", label: "Appearances" },
+    { key: "minutesPlayed", label: "Minutes Played" },
+];
 const TeamList = () => {
-    const profiles = [1, 2, 3, 4];
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const handleDelete = () => {
         console.log("delete");
@@ -21,19 +54,18 @@ const TeamList = () => {
     return (
         <>
             <div className="text-headings-light">
-                <h1>TeamList</h1>
-                <div>
-                    {profiles.map((profile) => (
-                        <div key={profile} className="flex gap-2">
-                            <Link to={`/team/${profile}`}>
-                                Profile {profile}
-                            </Link>
-                            <button onClick={() => setShowDeleteDialog(true)}>
-                                Delete
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                <MantineProvider>
+                    <div className="min-h-screen">
+                        <DataTable
+                            title="Roster Details"
+                            data={sampleData}
+                            columns={columns}
+                            onColumnHide={(columnKey) =>
+                                console.log("Column hidden:", columnKey)
+                            }
+                        />
+                    </div>
+                </MantineProvider>
             </div>
             <AlertDialog open={showDeleteDialog}>
                 <AlertDialogContent>

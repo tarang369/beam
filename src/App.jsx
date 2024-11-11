@@ -97,9 +97,9 @@ import SideBar from "./components/SideBar";
 
 const AppLayout = () => {
     return (
-        <div className="w-full mx-auto flex h-lvh bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
+        <div className="w-full mx-auto flex h-fit bg-gradient-to-b  to-bg-gradient-dark from-neutral-dark">
             <SideBar />
-            <div className="px-10 pt-10 w-full">
+            <div className="pl-20 pr-10 pt-10 w-full">
                 <Breadcrumbs />
                 <Outlet /> {/* This will render the child route components */}
             </div>

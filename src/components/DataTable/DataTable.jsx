@@ -20,6 +20,7 @@ export default function DataTable({
     title,
     isLoading = false,
     error,
+    onColumnOrderChange,
     onColumnHide,
 }) {
     const [page, setPage] = useState(1);
@@ -43,6 +44,7 @@ export default function DataTable({
         }
 
         setVisibleColumns(newColumns);
+        onColumnOrderChange?.(newColumns);
     };
 
     const handleHideColumn = (columnKey) => {
